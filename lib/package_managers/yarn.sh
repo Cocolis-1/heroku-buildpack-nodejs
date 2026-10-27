@@ -424,7 +424,7 @@ function package_managers::yarn::yarn2_install_dependencies() {
 	# Berry writes progress and errors across stdout+stderr; merge them with `2>&1`, pass the
 	# merged stream through `tee` for classification, and indent it with `output::indent`.
 	# shellcheck disable=SC2310 # invoked in a condition so set -e is disabled inside
-	if ! { yarn install --immutable 2>&1 | tee "${log_file}" | output::indent; }; then
+	if ! { yarn install 2>&1 | tee "${log_file}" | output::indent; }; then
 		# Capture the full pipe status first (before any other command clobbers PIPESTATUS).
 		# The pipeline is `yarn 2>&1 | tee | output::indent`, so [0] is yarn's exit code (tee is
 		# [1], output::indent [2]).
